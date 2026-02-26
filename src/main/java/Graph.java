@@ -8,54 +8,42 @@ public class Graph<T> {
         adjList = new HashMap<>();
     }
 
-    // add planet/node
-    public void addVertex(T vertex) {
-        adjList.putIfAbsent(vertex, new ArrayList<>());
+    public void addVertex(T v) {
+        adjList.putIfAbsent(v, new ArrayList<>());
     }
 
-    // connect planets with weighted edge
-    public void addEdge(T from, T to, double weight) {
+    // BIDIRECTIONAL EDGE rubric item
+    public void addEdge(T a, T b, double weight) {
 
-        addVertex(from);
-        addVertex(to);
+        addVertex(a);
+        addVertex(b);
 
-        adjList.get(from).add(new Edge<>(from, to, weight));
-        adjList.get(to).add(new Edge<>(to, from, weight)); // undirected graph
+        adjList.get(a).add(new Edge<>(a, b, weight));
+        adjList.get(b).add(new Edge<>(b, a, weight));
     }
 
-    // Navigator uses this for drawing + Dijkstra
-    public List<Edge<T>> getEdges(T vertex) {
-        return adjList.getOrDefault(vertex, new ArrayList<>());
+    public List<Edge<T>> getEdges(T v) {
+        return adjList.getOrDefault(v, new ArrayList<>());
     }
 
     public Set<T> getVertices() {
         return adjList.keySet();
     }
 
-
-    // DASHBOARD BONUS SUPPORT
-
-    // number of connections a planet has
-    public int degree(T vertex) {
-        return adjList.getOrDefault(vertex, new ArrayList<>()).size();
+    public int degree(T v) {
+        return adjList.get(v).size();
     }
 
-    // degree distribution data for charts
-    public Map<Integer, Integer> getDegreeDistribution() {
+    // dashboard bonus support
+    public Map<Integer,Integer> getDegreeDistribution() {
 
-        Map<Integer, Integer> distribution = new HashMap<>();
+        Map<Integer,Integer> dist = new HashMap<>();
 
-        for (T vertex : adjList.keySet()) {
-            int deg = degree(vertex);
-            distribution.put(deg,
-                    distribution.getOrDefault(deg, 0) + 1);
+        for(T v : adjList.keySet()) {
+            int d = degree(v);
+            dist.put(d, dist.getOrDefault(d,0)+1);
         }
 
-        return distribution;
-    }
-
-    // useful helper (teachers like this)
-    public int size() {
-        return adjList.size();
+        return dist;
     }
 }
