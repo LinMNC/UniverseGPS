@@ -1,0 +1,17 @@
+1.) Prompt:
+"I want the planets in my SpaceExplorerApp to drag smoothly across the Pane, and I want the connected edges to move with the planets in real-time. How can I do this?"
+Response:
+Use smooth drag handlers with setCenterX() and setCenterY() so the planet circles move fluidly without redrawing the entire scene.
+Use edgeMap to store a list of all edges connected to each planet. During a drag event, the coordinates of each edge are updated in real-time so that the edges stay connected to their planets.
+Improvement:
+Planets now move smoothly across the Pane.
+Original edges dynamically follow the planets while dragging, keeping all connections accurate and interactive.
+
+2.) Prompt:
+    "I want a button that clears the selected start/end planets and the gold shortest-path lines, but keeps the original edges connected. How can I implement this?"
+    Response:
+    Create a Clear Path button that, when clicked, removes the gold path lines (pathLines.clear() and root.getChildren().removeAll(pathLines)) and unselects the start and end planets by setting them to null.
+    Keep the original edges intact by not regenerating them; just redraw the planets and edges after clearing the path.
+    Improvement:
+    Users can now clear the current path and selections without affecting the universe’s original edges.
+    Original edges remain connected and interactive, maintaining the galaxy map’s structure.
