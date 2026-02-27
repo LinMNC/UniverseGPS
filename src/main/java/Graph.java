@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Graph<T> {
 
-    private Map<T, List<Edge<T>>> adjList;
+    private final Map<T, List<Edge<T>>> adjList;
 
     public Graph() {
         adjList = new HashMap<>();
@@ -14,13 +14,13 @@ public class Graph<T> {
     }
 
     // connect planets with weighted edge
-    public void addEdge(T from, T to, double weight) {
+    public void addEdge(T src, T des, double weight) {
 
-        addVertex(from);
-        addVertex(to);
+        addVertex(src);
+        addVertex(des);
 
-        adjList.get(from).add(new Edge<>(from, to, weight));
-        adjList.get(to).add(new Edge<>(to, from, weight)); // undirected graph
+        adjList.get(src).add(new Edge<>(src, des, weight));
+        adjList.get(des).add(new Edge<>(des, src, weight));
     }
 
     // Navigator uses this for drawing + Dijkstra
@@ -47,11 +47,19 @@ public class Graph<T> {
 
         for (T vertex : adjList.keySet()) {
             int deg = degree(vertex);
-            distribution.put(deg,
-                    distribution.getOrDefault(deg, 0) + 1);
+            distribution.put(deg, distribution.getOrDefault(deg, 0) + 1);
         }
 
         return distribution;
+    }
+
+
+    public void resetNodes() {
+        for (T node : getVertices()) {
+            if (node instanceof Planet) {
+                ((Planet) node).reset();
+            }
+        }
     }
 
     // useful helper (teachers like this)

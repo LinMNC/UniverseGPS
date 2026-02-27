@@ -4,6 +4,11 @@ public class Planet {
     private double x;
     private double y;
 
+    // PATHFINDING STATE (Do not modify)
+    public double minDistance = Double.MAX_VALUE;
+    public Planet previous = null;
+    public boolean visited = false;
+
     public Planet(String name, double x, double y) {
         this.name = name;
         this.x = x;
@@ -14,6 +19,16 @@ public class Planet {
         return name;
     }
 
+    public void setX(double x)
+    {
+        this.x = x;
+    }
+
+    public void setY(double y)
+    {
+        this.y = y;
+    }
+
     public double getX() {
         return x;
     }
@@ -22,7 +37,13 @@ public class Planet {
         return y;
     }
 
-    // ⭐ VISUAL WEIGHTING SUPPORT
+    public void reset() {
+        minDistance = Double.MAX_VALUE;
+        previous = null;
+        visited = false;
+    }
+
+    // VISUAL WEIGHTING SUPPORT
     // distance between planets = edge weight
     public double distanceTo(Planet other) {
         double dx = this.x - other.x;
