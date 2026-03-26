@@ -149,7 +149,7 @@ public class SpaceExplorerApp extends Application {
 
             circle.setOnMouseReleased(e -> {
                 if (isDragMode) {
-                    drawGraph(); // Call your method to update the graph
+                    drawGraph();
                 }
             });
 
